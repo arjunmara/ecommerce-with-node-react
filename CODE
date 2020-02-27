@@ -1,0 +1,36 @@
+Backend node dependencies
+npm i express express-validator bcryptjs config gravatar jsonwebtoken mongoose request 
+Dev dependencies
+npm install -D nodemon concurrently
+
+In config > default.json>
+{
+  "mongoURI": "mongodb+srv://arjun:arjun123@cluster0-b0ubp.mongodb.net/test?retryWrites=true&w=majority"
+}
+
+In db.js
+db = config.get("mongoURI");
+
+const dbConnect = async () => {
+  try {
+    await mongoose.connect(db);
+    console.log("Mongodb Connected");
+  } catch (error) {
+    console.error(err.message);
+    // Exit Process with failure
+    process.exit(1);
+  }
+};
+
+
+middleware
+// Init middleware for getting the request body
+
+app.use(express.json({ extended: false }));
+
+In a model like profile to link back to a user who has a profile. Add the below to the model profile
+
+user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "user"
+  }
