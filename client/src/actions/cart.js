@@ -1,17 +1,10 @@
 import { ADD_TO_CART, CART_ERROR, GET_CART, TOGGLE_HIDDEN } from "./types";
 import axios from "axios";
-export const addToCart = id => async dispatch => {
+export const addToCart = item => async dispatch => {
   try {
-    const res = await axios.get(`/api/products/${id}`);
-    const newCartItem = {
-      id: res.data._id,
-      title: res.data.title,
-      prouductPrice: res.data.prouductPrice,
-      quantity: res.data.quantity
-    };
     dispatch({
       type: ADD_TO_CART,
-      payload: newCartItem
+      payload: item
     });
   } catch (error) {
     dispatch({

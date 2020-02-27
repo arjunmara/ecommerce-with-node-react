@@ -1,12 +1,34 @@
 import React, { Fragment } from "react";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
 
-const CartItem = ({ cartItem }) => {
-  console.log(cartItem);
+const CartItem = ({ item }) => {
+  console.log(item);
 
-  return <Fragment>{}</Fragment>;
+  return (
+    <Fragment>
+      <div
+        style={{
+          color: "#000000"
+        }}
+      >
+        {item.title}
+      </div>
+      <div
+        style={{
+          color: "#000000"
+        }}
+      >
+        {item.count} <span> x {item.prouductPrice}</span>
+      </div>
+    </Fragment>
+  );
 };
 
 CartItem.propTypes = {};
 
-export default CartItem;
+const mapStateToProps = state => ({
+  cart: state.cart
+});
+
+export default connect(mapStateToProps, {})(CartItem);

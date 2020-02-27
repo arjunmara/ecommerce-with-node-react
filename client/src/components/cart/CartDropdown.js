@@ -1,7 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
+import CartItem from "./CartItem";
+import { connect } from "react-redux";
 
-const CartDropdown = props => {
+const CartDropdown = ({ cart }) => {
   return (
     <div>
       <div
@@ -16,6 +18,9 @@ const CartDropdown = props => {
           backgroundColor: "#ffffff"
         }}
       >
+        {cart.map(cartItem => (
+          <CartItem key={cartItem._id.toString()} item={cartItem} />
+        ))}
         <button
           className='btn btn-primary'
           style={{ position: "absolute", bottom: "0", left: "30%" }}
@@ -28,5 +33,8 @@ const CartDropdown = props => {
 };
 
 CartDropdown.propTypes = {};
+const mapStateToProps = ({ cart: { cart } }) => ({
+  cart
+});
 
-export default CartDropdown;
+export default connect(mapStateToProps, {})(CartDropdown);

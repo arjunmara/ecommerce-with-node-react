@@ -1,9 +1,9 @@
 import React, { Fragment, useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import CartItem from "./CartItem.js";
 import { getCart } from "../../actions/cart";
 import Spinner from "../layout/Spinner";
+import CartItem from "./CartItem";
 
 const Cart = ({ cart: { cart, loading }, getCart }) => {
   useEffect(() => {
@@ -18,7 +18,7 @@ const Cart = ({ cart: { cart, loading }, getCart }) => {
       {cart.length > 0 ? (
         <div className='posts'>
           {cart.map(cartItem => (
-            <CartItem key={cartItem._id} cartItem={cartItem} />
+            <CartItem key={cartItem._id} item={cartItem} />
           ))}
         </div>
       ) : (
