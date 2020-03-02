@@ -3,8 +3,6 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
 const CartItem = ({ item }) => {
-  console.log(item);
-
   return (
     <Fragment>
       <div

@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import { logout } from "../../actions/auth";
 import { toggleCart } from "../../actions/cart";
 import CartDropdown from "../cart/CartDropdown";
+import CartImg from "../cart/CartImg.js";
 const Navbar = ({
   auth: { isAuthenticated, loading },
   logout,
@@ -41,13 +42,7 @@ const Navbar = ({
       </li>
       <li>
         {" "}
-        <i
-          className='fas fa-cart-plus'
-          onClick={e => {
-            toggleCart();
-          }}
-        ></i>
-        <span>0</span>
+        <CartImg />
       </li>
       {!hidden && <CartDropdown />}
       <li>

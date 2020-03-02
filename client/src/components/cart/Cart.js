@@ -4,8 +4,9 @@ import { connect } from "react-redux";
 import { getCart } from "../../actions/cart";
 import Spinner from "../layout/Spinner";
 import CartItem from "./CartItem";
+import CheckoutItem from "./CheckoutItem";
 
-const Cart = ({ cart: { cart, loading }, getCart }) => {
+const Cart = ({ cart: { cart, loading }, getCart, itemCount, total }) => {
   useEffect(() => {
     getCart();
   }, [getCart]);
@@ -15,15 +16,31 @@ const Cart = ({ cart: { cart, loading }, getCart }) => {
     </Fragment>
   ) : (
     <Fragment>
-      {cart.length > 0 ? (
-        <div className='posts'>
-          {cart.map(cartItem => (
-            <CartItem key={cartItem._id} item={cartItem} />
-          ))}
+      <div className='checkout-page'>
+        <div className='checkout-header'>
+          <div className='header-block'>
+            <span>Product</span>
+          </div>
+          <div className='header-block'>
+            <span>Description</span>
+          </div>
+          <div className='header-block'>
+            <span>Quantity</span>
+          </div>
+          <div className='header-block'>
+            <span>Price</span>
+          </div>
+          <div className='header-block'>
+            <span>Remove</span>
+          </div>
         </div>
-      ) : (
-        <h1>No items found!</h1>
-      )}
+        {cart.map(cartItem => (
+          <CheckoutItem key={cartItem._id} cartItem={cartItem} />
+        ))}
+        <div className='total'>
+          <span>{total}</span>
+        </div>
+      </div>
     </Fragment>
   );
 };
@@ -31,7 +48,18 @@ const Cart = ({ cart: { cart, loading }, getCart }) => {
 Cart.propTypes = {
   cart: PropTypes.object.isRequired
 };
-const mapStateToProps = state => ({
-  cart: state.cart
-});
+const mapStateToProps = state => {
+  return {
+    cart: state.cart,
+    itemCount: state.cart.cart.reduce(
+      (accumulatedQuantity, cartItem) => accumulatedQuantity + cartItem.count,
+      0
+    ),
+    total: state.cart.cart.reduce(
+      (accumulatedQuantity, cartItem) =>
+        accumulatedQuantity + cartItem.count * cartItem.prouductPrice,
+      0
+    )
+  };
+};
 export default connect(mapStateToProps, { getCart })(Cart);

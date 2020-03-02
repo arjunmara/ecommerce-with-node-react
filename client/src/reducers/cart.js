@@ -4,7 +4,7 @@ import {
   GET_CART,
   TOGGLE_HIDDEN
 } from "../actions/types";
-import { addItemsToCart } from "../components/cart/Cart.utils";
+import { addItemsToCart } from "../actions/Cart.utils";
 
 const initialState = {
   hidden: true,
