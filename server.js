@@ -1,5 +1,4 @@
 const express = require("express");
-const fileUpload = require("express-fileUpload");
 const connectDB = require("./config/db");
 const path = require("path");
 const app = express();
