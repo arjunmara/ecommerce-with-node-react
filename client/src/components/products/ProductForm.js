@@ -18,8 +18,8 @@ const ProductForm = ({ addProduct, history }) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
   const onImgChange = e => {
-    setProductImg(e.target.files);
-    setProductImgName(e.target.files.name);
+    setProductImg(e.target.files[0]);
+    setProductImgName(e.target.files[0].name);
   };
 
   const onSubmit = e => {
