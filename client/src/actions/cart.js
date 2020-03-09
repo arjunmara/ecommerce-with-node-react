@@ -1,4 +1,11 @@
-import { ADD_TO_CART, CART_ERROR, GET_CART, TOGGLE_HIDDEN } from "./types";
+import {
+  ADD_TO_CART,
+  CART_ERROR,
+  GET_CART,
+  TOGGLE_HIDDEN,
+  CLEAR_CART_ITEM,
+  REMOVE_ITEM
+} from "./types";
 import axios from "axios";
 export const addToCart = item => async dispatch => {
   try {
@@ -29,5 +36,17 @@ export const getCart = () => async dispatch => {
 export const toggleCart = () => async dispatch => {
   dispatch({
     type: TOGGLE_HIDDEN
+  });
+};
+export const clearCartItem = item => async dispatch => {
+  dispatch({
+    type: CLEAR_CART_ITEM,
+    payload: item
+  });
+};
+export const removeItem = item => async dispatch => {
+  dispatch({
+    type: REMOVE_ITEM,
+    payload: item
   });
 };

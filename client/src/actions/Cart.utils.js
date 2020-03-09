@@ -10,10 +10,24 @@ export const addItemsToCart = (cart, cartItemToAdd) => {
   if (cartExistingItem) {
     return cart.map(cartItem =>
       cartItem._id === cartItemToAdd._id
-        ? { ...cartItem, count: cartItem.count + 1, ...(cartItem.quantity - 1) }
+        ? { ...cartItem, count: cartItem.count + 1 }
         : cartItem
     );
   }
   //   This code will run if the cart is empty
   return [...cart, { ...cartItemToAdd, count: 1 }];
+};
+
+export const removeItemFromCart = (cart, cartItemToRemove) => {
+  const cartExistingItem = cart.find(
+    cartItem => cartItem._id === cartItemToRemove._id
+  );
+  if (cartExistingItem.count === 1) {
+    return cart.filter(cartItem => cartItem._id !== cartItemToRemove._id);
+  }
+  return cart.map(cartItem =>
+    cartItem._id === cartItemToRemove._id
+      ? { ...cartItem, count: cartItem.count - 1 }
+      : cartItem
+  );
 };

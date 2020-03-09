@@ -1,25 +1,28 @@
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import Moment from "react-moment";
 import { connect } from "react-redux";
 import { addToCart } from "../../actions/cart";
 
-const ProductItem = ({ auth, product, addToCart, cart }) => {
-  let [count, setCount] = useState(0);
-
+const ProductItem = ({ auth, product, addToCart, cart, match }) => {
+  const url = product.title.replace(/\s+/g, "-").toLowerCase();
+  const imgUrl = product.productImg.replace(/\\/g, "/").replace(/public/g, "");
+  console.log(imgUrl);
   return product.quantity > 0 ? (
     <div className='post bg-white p-1 my-1'>
-      <p className='my-1'>{product.title}</p>
+      <Link
+        to={{
+          pathname: `${match.path}/${url}`,
+          state: { product }
+        }}
+      >
+        <p className='my-1'>{product.title}</p>
+      </Link>
+      <img src={imgUrl} alt='alternate image' />
       <p className='post-date'>
         <span>Rs. </span> {product.prouductPrice}
       </p>
       <p>{product.description}</p>
-
-      <img
-        src={`data:image/png;base64, ${product.productImg.data}`}
-        alt='alternate'
-      />
       {!auth.isAuthenticated && (
         <button
           className='btn btn-primary'
@@ -34,16 +37,12 @@ const ProductItem = ({ auth, product, addToCart, cart }) => {
     </div>
   ) : (
     <div className='post bg-white p-1 my-1'>
+      <img src={imgUrl} alt='image' />
       <p className='my-1'>{product.title}</p>
       <p className='post-date'>
         <span>Rs. </span> {product.prouductPrice}
       </p>
       <p>{product.description}</p>
-
-      <img
-        src={`data:image/png;base64, ${product.productImg.data}`}
-        alt='alternate'
-      />
       <p>Out Of Stock</p>
     </div>
   );

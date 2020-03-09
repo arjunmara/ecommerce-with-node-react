@@ -26,3 +26,5 @@ export const ADD_TO_CART = "ADD_TO_CART";
 export const CART_ERROR = "CART_ERROR";
 export const GET_CART = "GET_CART";
 export const TOGGLE_HIDDEN = "TOGGLE_HIDDEN";
+export const CLEAR_CART_ITEM = "CLEAR_CART_ITEM";
+export const REMOVE_ITEM = "REMOVE_ITEM";

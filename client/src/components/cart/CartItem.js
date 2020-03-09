@@ -1,5 +1,4 @@
 import React, { Fragment } from "react";
-import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
 const CartItem = ({ item }) => {
@@ -12,6 +11,10 @@ const CartItem = ({ item }) => {
       >
         {item.title}
       </div>
+      <img
+        src={item.productImg.replace(/\\/g, "/").replace(/public/g, "")}
+        alt=''
+      />
       <div
         style={{
           color: "#000000"

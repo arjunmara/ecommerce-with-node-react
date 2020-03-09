@@ -12,11 +12,14 @@ import setAuthToken from "./utils/setAuthToken";
 import Posts from "./components/posts/Posts";
 import Post from "./components/post/Post";
 import Products from "./components/products/Products";
+import ProductForm from "./components/products/ProductForm";
 import Cart from "./components/cart/Cart";
-
+import ProductSingle from "./components/products/ProductSingle";
 // Redux
+
+import { PersistGate } from "redux-persist/integration/react";
 import { Provider } from "react-redux";
-import store from "./store";
+import { store, persistor } from "./store";
 import PrivateRoute from "./components/routing/PrivateRoute";
 
 if (localStorage.token) {
@@ -29,25 +32,35 @@ const App = () => {
   return (
     <Provider store={store}>
       <Router>
-        <Fragment>
-          <Navbar />
-          <Route exact path='/' exact component={Landing} />
-          <section className='container'>
-            <Alert />
-            <Switch>
-              <PrivateRoute exact path='/register' component={Register} />
-              <Route exact path='/login' component={Login} />
-              <Route exact path='/products' component={Products} />
-              <Route exact path='/checkout' component={Cart} />
-              <PrivateRoute exact path='/dashboard' component={Dashboard} />
+        <PersistGate persistor={persistor}>
+          <Fragment>
+            <Navbar />
+            <Route exact path='/' component={Landing} />
+            <section className='container'>
+              <Alert />
               <Switch>
+                <PrivateRoute exact path='/register' component={Register} />
+                <Route exact path='/login' component={Login} />
                 <Route exact path='/products' component={Products} />
+                <Route exact path='/checkout' component={Cart} />
+                <PrivateRoute exact path='/dashboard' component={Dashboard} />
+                <PrivateRoute
+                  exact
+                  path='/product-add'
+                  component={ProductForm}
+                />
+                <Route exact path='/products' component={Products} />
+                <Route
+                  exact
+                  path='/products/:title'
+                  component={ProductSingle}
+                />
+                <PrivateRoute exact path='/posts' component={Posts} />
+                <PrivateRoute exact path='/posts/:id' component={Post} />
               </Switch>
-              <PrivateRoute exact path='/posts' component={Posts} />
-              <PrivateRoute exact path='/posts/:id' component={Post} />
-            </Switch>
-          </section>
-        </Fragment>
+            </section>
+          </Fragment>
+        </PersistGate>
       </Router>
     </Provider>
   );

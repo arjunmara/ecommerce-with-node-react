@@ -1,7 +1,6 @@
 import React from "react";
-import PropTypes from "prop-types";
 import CartItem from "./CartItem";
-import { Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { toggleCart } from "../../actions/cart";
 

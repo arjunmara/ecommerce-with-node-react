@@ -16,31 +16,41 @@ const Cart = ({ cart: { cart, loading }, getCart, itemCount, total }) => {
     </Fragment>
   ) : (
     <Fragment>
-      <div className='checkout-page'>
-        <div className='checkout-header'>
-          <div className='header-block'>
-            <span>Product</span>
+      {cart.length ? (
+        <div className='checkout-page'>
+          <div className='checkout-header'>
+            <div className='header-block'>
+              <span>Product</span>
+            </div>
+            <div className='header-block'>
+              <span>Description</span>
+            </div>
+            <div className='header-block'>
+              <span>Quantity</span>
+            </div>
+            <div className='header-block'>
+              <span>Price</span>
+            </div>
+            <div className='header-block'>
+              <span>Remove</span>
+            </div>
           </div>
-          <div className='header-block'>
-            <span>Description</span>
+          {cart.map(cartItem => (
+            <CheckoutItem key={cartItem._id} cartItem={cartItem} />
+          ))}
+          <div className='total'>
+            <span>{total}</span>
           </div>
-          <div className='header-block'>
-            <span>Quantity</span>
+          <div className='total'>
+            <span>Tax: 13%</span>
           </div>
-          <div className='header-block'>
-            <span>Price</span>
-          </div>
-          <div className='header-block'>
-            <span>Remove</span>
+          <div className='total grand-total'>
+            <span>{total + 0.13 * total}</span>
           </div>
         </div>
-        {cart.map(cartItem => (
-          <CheckoutItem key={cartItem._id} cartItem={cartItem} />
-        ))}
-        <div className='total'>
-          <span>{total}</span>
-        </div>
-      </div>
+      ) : (
+        <h1>No Items Found</h1>
+      )}
     </Fragment>
   );
 };

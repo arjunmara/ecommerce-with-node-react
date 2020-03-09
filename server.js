@@ -1,4 +1,5 @@
 const express = require("express");
+const fileUpload = require("express-fileUpload");
 const connectDB = require("./config/db");
 const path = require("path");
 const app = express();
@@ -16,8 +17,8 @@ app.use("/api/auth", require("./routes/api/auth"));
 app.use("/api/profile", require("./routes/api/profile"));
 app.use("/api/posts", require("./routes/api/posts"));
 app.use("/api/products", require("./routes/api/products"));
-
-// Serve Static assets in prod
+// Serve Static assets in dev
+app.use(express.static("./public"));
 
 if (process.env.NODE_ENV === "production") {
   // Set static folder

@@ -8,13 +8,14 @@ const ProductSchema = new Schema({
   },
   title: {
     type: String,
-    required: true
+    required: true,
+    unique: true
   },
   description: {
     type: String
   },
   productImg: {
-    type: Buffer
+    type: String
   },
   prouductPrice: {
     type: String,

@@ -1,12 +1,6 @@
 import axios from "axios";
 import { setAlert } from "./alert";
-import {
-  ADD_PRODUCT,
-  GET_PRODUCT,
-  GET_PRODUCTS,
-  DELETE_PRODUCT,
-  PRODUCT_ERROR
-} from "./types";
+import { ADD_PRODUCT, GET_PRODUCT, GET_PRODUCTS, PRODUCT_ERROR } from "./types";
 
 // Get Products
 export const getProducts = () => async dispatch => {
@@ -43,19 +37,19 @@ export const getProducts = () => async dispatch => {
 // };
 
 // Add Product
-export const addProduct = formData => async dispatch => {
+export const addProduct = productData => async dispatch => {
   const config = {
     headers: {
       "Content-Type": "multipart/form-data"
     }
   };
   try {
-    const res = await axios.post("/api/products/", formData, config);
+    const res = await axios.post("/api/products/", productData, config);
+
     dispatch({
       type: ADD_PRODUCT,
       payload: res.data
     });
-
     dispatch(setAlert("Product Added", "success"));
   } catch (error) {
     dispatch({

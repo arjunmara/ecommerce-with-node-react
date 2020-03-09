@@ -8,30 +8,40 @@ const ProductForm = ({ addProduct, history }) => {
   const [formData, setFormData] = useState({
     title: "",
     description: "",
-    productImg: "",
     prouductPrice: "",
     quantity: ""
   });
-  const { title, description, productImg, productPrice, quantity } = formData;
-
+  const [productImg, setProductImg] = useState("");
+  const [productImgName, setProductImgName] = useState("Choose File");
+  const { title, description, productPrice, quantity } = formData;
   const onchange = e => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+  const onImgChange = e => {
+    setProductImg(e.target.files);
+    setProductImgName(e.target.files.name);
   };
 
   const onSubmit = e => {
     e.preventDefault();
-    console.log(formData);
-    addProduct(formData, history);
+    const productData = new FormData();
+    productData.append("title", title);
+    productData.append("description", description);
+    productData.append("prouductPrice", productPrice);
+    productData.append("quantity", quantity);
+    productData.append("productImg", productImg, productImgName);
+    addProduct(productData);
+    console.log(productData);
   };
   return (
-    <div class='post-form'>
-      <div class='bg-primary p'>
+    <div className='post-form'>
+      <div className='bg-primary p'>
         <h3>Add a Product...</h3>
       </div>
       <form
         className='form'
         onSubmit={e => onSubmit(e)}
-        enctype='multipart/form-data'
+        encType='multipart/form-data'
       >
         <div className='form-group'>
           <input
@@ -72,14 +82,15 @@ const ProductForm = ({ addProduct, history }) => {
         <div className='form-group'>
           <input
             type='file'
-            placeholder='price'
             name='productImg'
-            value={productImg}
-            onChange={e => onchange(e)}
+            multiple
+            onChange={e => {
+              onImgChange(e);
+            }}
           />
         </div>
 
-        <input type='submit' class='btn btn-dark my-1' value='Submit' />
+        <input type='submit' className='btn btn-dark my-1' value='Submit' />
       </form>
     </div>
   );

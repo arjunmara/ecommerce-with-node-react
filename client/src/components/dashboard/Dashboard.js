@@ -1,7 +1,6 @@
-import React, { useEffect, Fragment } from "react";
+import React, { Fragment } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import Spinner from "../layout/Spinner";
 import { Link } from "react-router-dom";
 import { deleteAccount } from "../../actions/auth";
 const Dashboard = ({ deleteAccount, auth: { user } }) => {
@@ -20,7 +19,7 @@ const Dashboard = ({ deleteAccount, auth: { user } }) => {
       </Fragment>
       <Fragment>
         <p>You have not yet setup a profile, Please add some info.</p>
-        <Link to='/products' className='btn btn-primary my-1'>
+        <Link to='/product-add' className='btn btn-primary my-1'>
           Add Products
         </Link>
       </Fragment>

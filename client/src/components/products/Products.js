@@ -7,13 +7,13 @@ import { getCart } from "../../actions/cart";
 import Spinner from "../layout/Spinner";
 import { useEffect } from "react";
 import ProductItem from "./ProductItem";
-import ProductForm from "./ProductForm";
 
 const Products = ({
   auth,
   getProducts,
   getCart,
-  product: { products, loading, hidden }
+  product: { products, loading, hidden },
+  match
 }) => {
   useEffect(() => {
     getProducts();
@@ -26,15 +26,26 @@ const Products = ({
     </Fragment>
   ) : (
     <Fragment>
-      {auth.isAuthenticated === true && <ProductForm />}
+      {auth.isAuthenticated === true && (
+        <Link to='/product-add'>
+          <button className='btn btn-primary'>Add a Product</button>
+        </Link>
+      )}
       <div className='posts'>
         {products.map(product => (
-          <ProductItem key={product._id} product={product} auth={auth} />
+          <ProductItem
+            key={product._id}
+            product={product}
+            auth={auth}
+            match={match}
+          />
         ))}
       </div>
-      <button className='btn btn-danger'>
-        <Link to='/cart'>Go to Cart</Link>
-      </button>
+      {auth.isAuthenticated === false && (
+        <button className='btn btn-danger'>
+          <Link to='/checkout'>Go to Cart</Link>
+        </button>
+      )}
     </Fragment>
   );
 };
