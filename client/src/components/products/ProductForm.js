@@ -31,6 +31,13 @@ const ProductForm = ({ addProduct, history }) => {
     productData.append("quantity", quantity);
     productData.append("productImg", productImg, productImgName);
     addProduct(productData);
+    setFormData({
+      title: "",
+      description: "",
+      prouductPrice: "",
+      quantity: ""
+    });
+    setProductImg("");
     console.log(productData);
   };
   return (
