@@ -13,7 +13,7 @@ const ProductForm = ({ addProduct, history }) => {
   });
   const [productImg, setProductImg] = useState("");
   const [productImgName, setProductImgName] = useState("Choose File");
-  const { title, description, productPrice, quantity } = formData;
+  const { title, description, prouductPrice, quantity } = formData;
   const onchange = e => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -27,7 +27,7 @@ const ProductForm = ({ addProduct, history }) => {
     const productData = new FormData();
     productData.append("title", title);
     productData.append("description", description);
-    productData.append("prouductPrice", productPrice);
+    productData.append("prouductPrice", prouductPrice);
     productData.append("quantity", quantity);
     productData.append("productImg", productImg, productImgName);
     addProduct(productData);
@@ -81,8 +81,8 @@ const ProductForm = ({ addProduct, history }) => {
           <input
             type='text'
             placeholder='price'
-            name='productPrice'
-            value={productPrice}
+            name='prouductPrice'
+            value={prouductPrice}
             onChange={e => onchange(e)}
           />
         </div>
